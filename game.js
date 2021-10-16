@@ -6,8 +6,8 @@ let offset = 0;
 let prevTime = 0;
 let duration = 0;
 let animationSpeed = 50;
-const x0 = 0;
-const y0 = canvas.height;
+const x0 = 30;
+const y0 = canvas.height - 30;
 const angle = document.getElementById("angle");
 const speed = document.getElementById("speed");
 const g = 0.06;
@@ -31,8 +31,12 @@ const update = () => {
 const draw = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
-  ctx.arc(x, y, 10, 0, 2 * Math.PI);
+  ctx.arc(x, y, 20, 0, 2 * Math.PI);
   ctx.fill();
+  ctx.fillText(`Angle : ${angle.value}`, 30, 50);
+  ctx.fillText(`Speed : ${speed.value}`, 30, 65);
+  ctx.fillText(`X : ${x}`, 30, 80);
+  ctx.fillText(`Y : ${y}`, 30, 95);
   console.log("offset", offset);
 };
 
@@ -45,6 +49,8 @@ const gameLoop = (time) => {
 };
 
 const init = () => {
+  angle.value = 45;
+  speed.value = 5;
   offset = 0;
   window.requestAnimationFrame(gameLoop);
 };
