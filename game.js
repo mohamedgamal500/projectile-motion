@@ -5,23 +5,27 @@ canvas.height = window.innerHeight - 120;
 let offset = 0;
 let prevTime = 0;
 let duration = 0;
-let animationSpeed = 300;
+let animationSpeed = 50;
 const x0 = 0;
 const y0 = canvas.height;
-const angle = 45;
-const speed = 0.7;
-const g = 0.0005;
+const angle = document.getElementById("angle");
+const speed = document.getElementById("speed");
+const g = 0.06;
+const start = document.getElementById("start");
 
 let x = x0;
 let y = y0;
+let begin = false;
 
 const update = () => {
-  offset = offset + animationSpeed * duration;
-  x = speed * Math.cos((-angle * Math.PI) / 180) * offset + x0;
-  y =
-    0.5 * g * offset * offset +
-    speed * Math.sin((-angle * Math.PI) / 180) * offset +
-    y0;
+  if (begin) {
+    offset = offset + animationSpeed * duration;
+    x = speed.value * Math.cos((-angle.value * Math.PI) / 180) * offset + x0;
+    y =
+      0.5 * g * offset * offset +
+      speed.value * Math.sin((-angle.value * Math.PI) / 180) * offset +
+      y0;
+  }
 };
 
 const draw = () => {
@@ -41,7 +45,22 @@ const gameLoop = (time) => {
 };
 
 const init = () => {
+  offset = 0;
   window.requestAnimationFrame(gameLoop);
 };
+
+start.addEventListener("click", () => {
+  if (!begin) {
+    start.value = "restart";
+  } else {
+    start.value = "start";
+    x = x0;
+    y = y0;
+    offset = 0;
+    angle.value = 0;
+    speed.value = 0;
+  }
+  begin = !begin;
+});
 
 window.onload = init();
