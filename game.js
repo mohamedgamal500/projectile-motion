@@ -1,11 +1,11 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth - 300;
-canvas.height = window.innerHeight - 120;
+canvas.width = window.innerWidth - 200;
+canvas.height = window.innerHeight - 130;
 let offset = 0;
 let prevTime = 0;
 let duration = 0;
-let animationSpeed = 50;
+let animationSpeed = 55;
 const x0 = 30;
 const y0 = canvas.height - 30;
 const angle = document.getElementById("angle");
