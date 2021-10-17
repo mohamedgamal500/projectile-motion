@@ -17,14 +17,22 @@ let x = x0;
 let y = y0;
 let begin = false;
 
+let flag = false;
+
 const update = () => {
-  if (begin) {
+  if (begin && flag) {
     offset = offset + animationSpeed * duration;
     x = speed.value * Math.cos((-angle.value * Math.PI) / 180) * offset + x0;
     y =
       0.5 * g * offset * offset +
       speed.value * Math.sin((-angle.value * Math.PI) / 180) * offset +
       y0;
+    if (x > canvas.width) {
+      flag = false;
+    }
+    if (y > canvas.height) {
+      flag = false;
+    }
   }
 };
 
@@ -35,8 +43,10 @@ const draw = () => {
   ctx.fill();
   ctx.fillText(`Angle : ${angle.value}`, 30, 50);
   ctx.fillText(`Speed : ${speed.value}`, 30, 65);
-  ctx.fillText(`X : ${x}`, 30, 80);
-  ctx.fillText(`Y : ${y}`, 30, 95);
+  ctx.fillText(`X0 : ${x0}`, 30, 80);
+  ctx.fillText(`Y0 : ${y0}`, 30, 95);
+  ctx.fillText(`X : ${x}`, 30, 110);
+  ctx.fillText(`Y : ${y}`, 30, 125);
   console.log("offset", offset);
 };
 
@@ -67,6 +77,7 @@ start.addEventListener("click", () => {
     speed.value = 0;
   }
   begin = !begin;
+  flag = true;
 });
 
 window.onload = init();
